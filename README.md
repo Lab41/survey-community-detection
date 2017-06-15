@@ -1,4 +1,4 @@
-#Market Survey: Community Detection
+# Market Survey: Community Detection
 
 ## Good Data Sets
 - Data which may not have Ground Truth
@@ -35,22 +35,20 @@
 -  For overlapping communities, we will want to use only internal and external metric values.  Combination metrics and modularity scores will result in misleading values that should be inconsistent.
 
 
-
 | Metric Name | Connectivity Type | Ground Truth Required? | Details |
 | :---------- | :---------------- | :----------------------| :------- |
 | Edge/Link Prediction | Comparative Scoring Funciton | No | Quality of division is based on ability to predict an edge after removing it |
 | Modularity [11] | Comparative Scoring Function |No | Tests a given division of a network against the random division. Scale below which modularity cannot identify communities bc random graphs have high-modularity subsets. Does not work well under nodeswap perturbation
 | F1 Score | Comparative Scoring Function | Yes | Determination of precision and recall.  Compares membership output of an algorithm to ground truth and returns the ratio of true and false assignments |
-| Omega Index | Comparative Scoring Function | Yes |  Compares non-disjoing clustering results.  The omega index considers the number of clusters in which a pair of objects appears together.|
-| Normalized Mutual Information [10] | Comparative Scoring Function | Yes | Used to quantify matching of "true" graphs particularly in synthetic graphs, it quantifies teh degree of overlap between graphs.|
+| Omega Index | Comparative Scoring Function | Yes |  Compares non-disjoing clustering results.  The omega index considers the number of clusters in which a pair of objects appears together. |
+| Normalized Mutual Information [10] | Comparative Scoring Function | Yes | Used to quantify matching of "true" graphs particularly in synthetic graphs, it quantifies teh degree of overlap between graphs. |
 
 
-##Metrics
-
+## Metrics
 | Metric Name | Connectivity Type | Details |
-| :---------- | :---------------- | :----------------------| :------- |
+| :---------- | :---------------- | :----------------------|
 | FOMD | Internal | Fraction over Median Degree determines the number of nodes that have an internal degree greater than the median degree of all nodes in a group |
-| Internal Density | Internal | Density is defined by the number of edges (m<sub>s</sub>) in subset S divided by the total number of possible edges between all nodes (n<sub>s</sub>(n<sub>s</sub>-1)/2).  The "2" is there to cancle out duplicated edges.  Internal Density = m<sub>s</sub>/(n<sub>s</sub>(n<sub>s</sub>-1)/2)| 
+| Internal Density | Internal | Density is defined by the number of edges (m<sub>s</sub>) in subset S divided by the total number of possible edges between all nodes (n<sub>s</sub>(n<sub>s</sub>-1)/2).  The "2" is there to cancle out duplicated edges.  Internal Density = m<sub>s</sub>/(n<sub>s</sub>(n<sub>s</sub>-1)/2)|
 | Edges Inside | Internal | Somewhat useless by itself since it isn't related to any other attributes of subset S.  The total number of edges (m<sub>s</sub>) present in subset S.  Edges Inside = m<sub>s</sub> |
 | Average degree | Internal | The average interal degree across all nodes (n<sub>s</sub>) in subset S.  Average Degree = 2m<sub>s</sub>/n<sub>s</sub>
 | Fraction over median degree (FOMD) | Internal | Determines the number of nodes that have an internal degree greater than the median degree of nodes in Subset S. |
@@ -62,21 +60,19 @@
 | Maximum Out Degree Fraction  (Maximum ODF) | Combo (Int. & Ext.) | This metric first finds the fraction of external conections to internal connections for each node (n<sub>s</sub>) in S.  It then returns the fraction with the highest value.  For example, S contain 5 nodes all connected to themselves.  There is one node in S that has 7 external connections.  The Max ODF = 7/4.  |
 | Average ODF | Combo (Int. & Ext.) | The sum of the individual fraction of edges outside of the community over the total connections of a node in subset S.  It is then divided by the total number of nodes (n<sub>s</sub>) in subset S. |
 | Flake-ODF | Combo (Int. & Ext.) | This is a fraction of the number of nodes that have fewer internal connections than external connections (***) to the number of nodes (n<sub>s</sub>) in subset S. |
-| Density | Internal | No | Members of a large community are more likely not to be connected to each other.  Two nodes in the same community of size k connected to each other has a probability of [Omega (1/sq.rt(k))]--Arora et al. 2012.  This creates a low-density, large graph.|
-      
-##Algorithms      
-        
-               
-####Algorithm Classes[7]
-        
+| Density | Internal | No | Members of a large community are more likely not to be connected to each other.  Two nodes in the same community of size k connected to each other has a probability of [Omega (1/sq.rt(k))]--Arora et al. 2012.  This creates a low-density, large graph. |
+
+
+## Algorithms
+#### Algorithm Classes[7]
 -  __Divisive__: Focus on edges and verticies that exist between communities. This class tends to be more repeatable, traditional and computationally expensive
 -  __Model Based__: Considers an underlying model of statistical nature that can generate the division of the network.  Time complexity often is derived through testing, and is not explicity characterized.
 - __Quality Optimization__: Usually maximizes the delta from some score such as modularity
 - __Vertex Clustering__: Embeds the Graph into vector space in order to use conventional data clustering methods such as k-means
 - __Cohesive Subgraph Discovery__:  This class finds communities of a particular predefined structure within the graph. For example, the structure could be a clique, n-clique, k-core, LS set, lambda set
-       
-####Algorithm Attributes
 
+
+#### Algorithm Attributes
 - __R__: Requires Number of Communities
 - __R+__: Requires # of communities, but is able to guess if not provided
 - __D__: Deterministic
@@ -89,14 +85,14 @@
 - __S__: Requires community size
       
       
-####Graph Input Types
+#### Graph Input Types
 - __w__ = "weighted"
 - __-w__ = "unweighted"
 - __d__ = "directed" 
 - __-d__ = "non-directed"
         
 
-####Framework Descriptions
+#### Framework Descriptions
 | Name | Author(s) | Homepage | Comments | 
 | :----| :-------- | :------- | :------- |
 | Snap || http://snap.stanford.edu ||
@@ -104,8 +100,8 @@
 | NetworkX |||
 | MatLab |||
 
-####Algorithm Table
 
+#### Algorithm Table
 |Algorithm Name/Year| Class | Time/Space Complexity (n = # of vertices, m = # of edges) | Algo Attributes | Implementations | Input Graph Type | Comments |
 | :---------------- | :---- | :---------------------| :-------------- | :-------------- | :--------------- | :------- |
 |Girvan-Newman (__Shortest-path betweenness__), 2004  [11] | Divisive | &Omicron;(nm<sup>2</sup>): Each iteration uses a tree structure to calculate edge betweeness of a graph in O(mn). Do this m times, once for each edge| D,H,G | Mathematica | w,-d | Iteratively removes links with the highest betweenness score (a score that measures the number of shortest paths that pass through an edge) |
@@ -129,12 +125,10 @@
 |Fuzzy Overlapping Group (FOG) [29] | Divisive | O(L<sup>3</sup>) | O | ORA  | | A combination of a stochastic model and maximum likelihood method group detection algorithm for inferring fuzzy overlapping groups. Groups are built from links which allows for multiple memberships varying levels of association from entities to groups. |
 | Bipartite Stochastic Block Model (biSBM), 2014 [30] | Model Based | O(N<sub>a</sub>K<sub>a</sub>(K<sub>a</sub> + k)) + O(N<sub>b</sub>K<sub>b</sub>(K<sub>b</sub> + k)) | Matlab || w | The degree corrected Bipartite Stochastic Block Model uses probability to search for maximum likelihood partition of a network into communities.  It models a network's observed degree sequence before finding community structure.  It divdes verticies into groups of like types.  These calculations are done iteratively to continually propose movements of vertices that increases the likelihood function. In ref to run time, k is avg degree of each node, N_a and N_b or number of vertices of type a and b, K_a and K_b are number of communities of type a and b</td>
 | Spectral Clustering [31] | Model Based | Determined by Eigenvalue Computation | L,Q,R || w,d | Spectral clustering algorithms rely on the calculation of eigenvalues of a similarity matrix to find optimal partitions, give a predetermined number of partitions.  It relaxes the complex problem of minimizing cut ratio over every possible k-partition to find the k-smallest eigenvalues and related eigenvectors of the Laplacian of the graph.
-| RolX  | Role identification/discovery | Q | SNAP || -w,-d | Generates list of roles as "profiles" of local/global node metrics, and assigns nodes a linear combination of these roles. 
+| RolX  | Role identification/discovery | Q | SNAP || -w,-d | Generates list of roles as "profiles" of local/global node metrics, and assigns nodes a linear combination of these roles.
 
 
-
-        
-##Notable Papers
+## Notable Papers
 | Topic | Title | Comments |
 | :---- | :---- | :------- |
 | Algorithm Comparisons | Community Detection Algorithms: A Comparative Analysis [3]
@@ -145,11 +139,9 @@
 | Algorithm Evalutation | Defining and Evaluating Network Communities based on Ground-truth[8]|
 | Centrality Measures / Community Detection | Using Centrality Measures to Identify Key Members of an Innovation Collaboration Network [24] |
 | Overlapping Community Detection | Overlapping community detection in networks: the state-of-the-art and comparative study [25]|
-        
-        
 
-                
-##References
+
+## References
 1. Michelle Girvan and M. E. J. Newman, 2001 http://arxiv.org/pdf/cond-mat/0112110.pdf, Community structure in social and biological networks
 2. M E J Newman, 2001  href="http://www-personal.umich.edu/~mejn/papers/016132.pdf, Scientific collaboration networks. II. Shortest paths, weighted networks, and centrality
 3. Andrea Lancichinetti and Santo Fortunato, 2010 http://arxiv.org/pdf/0908.1062v2.pdfCommunity detection algorithms: a comparative analysis
